@@ -1,4 +1,4 @@
-import 'package:chatgpt_app/screens/chat_scree.dart';
+import 'package:chatgpt_app/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'constants/constants.dart';
 
