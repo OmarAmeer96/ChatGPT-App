@@ -1,14 +1,18 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:chatgpt_app/constants/constants.dart';
 import 'package:chatgpt_app/services/assets_manager.dart';
-import 'package:chatgpt_app/widgets/text_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+import 'text_widget.dart';
 
 class ChatWidget extends StatelessWidget {
   const ChatWidget({super.key, required this.msg, required this.chatIndex});
 
   final String msg;
   final int chatIndex;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +34,28 @@ class ChatWidget extends StatelessWidget {
                 const SizedBox(
                   width: 8,
                 ),
-                Expanded(child: TextWidget(label: msg)),
+                Expanded(
+                  child: chatIndex == 0
+                      ? TextWidget(
+                          label: msg,
+                        )
+                      : DefaultTextStyle(
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16),
+                          child: AnimatedTextKit(
+                              isRepeatingAnimation: false,
+                              repeatForever: false,
+                              displayFullTextOnTap: true,
+                              totalRepeatCount: 1,
+                              animatedTexts: [
+                                TyperAnimatedText(
+                                  msg.trim(),
+                                ),
+                              ]),
+                        ),
+                ),
                 chatIndex == 0
                     ? const SizedBox.shrink()
                     : Row(
@@ -53,7 +78,7 @@ class ChatWidget extends StatelessWidget {
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }
